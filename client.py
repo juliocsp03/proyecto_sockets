@@ -5,6 +5,7 @@ import socket
 s = socket.socket()
 # DEFINIMOS EL PUERTO
 port = 8000
+path = ""
 # CREAMOS LA VARIABLE DE LA CABECERA
 header = """\
 PUT / HTTP/1.1\r
@@ -27,5 +28,4 @@ s.connect(('localhost', port))
 s.sendall(payload)
 print(payload.decode())
 print(s.recv(1024).decode())
-
 s.close()

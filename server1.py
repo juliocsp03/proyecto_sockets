@@ -10,7 +10,7 @@ s.listen(5)
 
 while True:
 	c, addr = s.accept()
-	c.send("Recibido compa".encode())
+	# c.send("Recibido".encode())
 	print(c.recv(1024).decode())
 	c.close()
 	break
