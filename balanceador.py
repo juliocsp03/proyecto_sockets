@@ -2,15 +2,15 @@ import socket
 
 s = socket.socket()
 
-port = 8090
+port = 8080
 
-s.bind((socket.gethostname(), port))
+s.bind(('', port))
 
 s.listen(5)
 
 while True:
 	c, addr = s.accept()
-	c.send("test".encode())
+	c.send("test_2".encode())
 	c.close()
 	break
 	pass

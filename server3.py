@@ -2,9 +2,9 @@ import socket
 
 s = socket.socket()
 
-port = 8080
+port = 8070
 
-s.bind(('', port))
+s.bind((socket.gethostname(), port))
 
 s.listen(5)
 
