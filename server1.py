@@ -10,7 +10,7 @@ s.listen(5)
 
 while True:
 	c, addr = s.accept()
-	c.send("test".encode())
+	c.send("test_2".encode())
 	c.close()
 	break
 	pass
