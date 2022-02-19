@@ -13,8 +13,11 @@ while True:
 	c, addr = s.accept()
 	os.makedirs(os.path.dirname('serv_test/'), exist_ok=True)
 	data = c.recv(1024)
-	with open('serv_test/img_serv.jpg', 'wb') as file:
+	file = open('serv_test/img_serv.jpg', 'wb')
+	while data:
 		file.write(data)
+		data = c.recv(1024)
+	file.close()
 	print(c)
 	print(addr)
 	print(c.recv(1024).decode())

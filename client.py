@@ -17,7 +17,7 @@ Connection: close\r
 
 # os.makedirs(os.path.dirname(path), exist_ok=True)
 file = open('test/img.jpg', 'rb')
-ruta_server = "dirx/filex"
+# ruta_server = "dirx/filex"
 
 # VARIABLE DEL BODY DE LA PETICIÓN
 # v1 = file.read()
@@ -36,10 +36,14 @@ ruta_server = "dirx/filex"
 s.connect(('localhost', port))
 # ENVIAMOS EL PAYLOAD AL SERVIDOR
 # s.sendall(payload)
-s.sendfile(file)
+f = file.read(1024)
+while f:
+    s.send(f)
+    f = file.read(1024)
+file.close()
 # IMPRIMIMOS
 # print(payload.decode())
+s.shutdown(socket.SHUT_WR)
 print(s.recv(1024).decode())
 # CERRAMOS LA CONEXIÓN
 s.close()
-file.close()
