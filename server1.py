@@ -36,9 +36,52 @@ while True:
 		c.send("Recibido".encode())
 	elif verbo_http == 'GET':
 		# print(uri)
-		files = [f for f in listdir('s1/'+uri) if isfile(join('s1/'+uri, f))]
-		print(len(files))
-		c.send("Errorororo".encode())
+		uri_parts = uri.split("/")
+		print(uri_parts)
+		if len(uri_parts) == 1:
+			files = [f for f in listdir('s1/'+uri) if isfile(join('s1/'+uri, f))]
+			# print(len(files))
+			header = """\
+			HTTP/1.1 200 OK\r
+			Date: Ejemplo de fecha\r
+			Content-Length: {content_length}\r
+			Host: {host}\r
+			Connection: close\r
+			\r\n\r\n
+			content={content_body}"""
+			header_encode = header.format(
+				content_type="application/x-www-form-urlencoded",
+				content_length=len(files),
+				host=str('localhost') + ":" + str(port),
+				content_body=files
+			).encode()
+			c.send(header_encode)
+		else:
+			grupo = uri_parts[0]
+			archivo = uri_parts[1]
+			print(grupo)
+			print(archivo)
+			file = open('s1/'+uri, 'rb')
+			f = file.read()
+			f_name = os.path.basename(file.name)
+			header = """\
+			HTTP/1.1 200 OK\r
+			Date: Ejemplo de fecha\r
+			Content-Length: {content_length}\r
+			Host: {host}\r
+			Connection: close\r
+			\r\n\r\n
+			filename={filename}
+			content={content_body}"""
+			header_encode = header.format(
+				content_type="application/x-www-form-urlencoded",
+				content_length=len(f),
+				host=str('localhost') + ":" + str(port),
+				filename=f_name,
+				content_body=f
+			).encode()
+			c.sendall(header_encode)
+
 	# print(header)
 	c.close()
 	# break
