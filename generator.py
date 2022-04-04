@@ -2,10 +2,11 @@
 import os
 import random
 grupo = 1
+print("Generando archivos ...")
 for g in range(3):
 	path = 'grupo_' + str(grupo) + '/'
 	os.makedirs(os.path.dirname(path), exist_ok=True)
-	print("group " + str(g))
+	print("grupo_" + str(g+1))
 	for x in range(100):
 		with open(path + 'g' + str(grupo) + '_archivo_' + str(x+1), 'wt') as f:
 			if grupo == 1:

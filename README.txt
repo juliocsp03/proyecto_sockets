@@ -1,1 +1,0 @@
-Ejecutar primero generator.py, después ejecutar server1.py y finalmente client.py
